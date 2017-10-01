@@ -15,9 +15,17 @@ def get_short_url(url):
     if url.startswith('https://'):
         # Add the bit for https, it will stay in all characters.
         base += 0b100000000000000
+        start_index = 8
+    elif url.startswith('http://'):
+        start_index = 7
+    else:
+        # URL does not have protocol, we'll add http:// to it.
+        start_index = 0
+
     shortened_url = []
     # We will iterate URL characters in pairs and encode in a single character.
-    for char1, char2 in zip_longest(url[::2], url[1::2]):
+    char_pairs = zip_longest(url[start_index::2], url[start_index+1::2])
+    for char1, char2 in char_pairs:
         encoded = base
         encoded += ord(char1) << 7
         # If odd number of characters, do not try to encode None.
@@ -48,3 +56,8 @@ def get_redirect_url(mojibake):
         if ord2:
             decoded_url.append(chr(ord2))
     return ''.join(decoded_url)
+
+
+def validate_url(url):
+    """Validate URL is correct."""
+    pass

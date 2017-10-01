@@ -1,5 +1,5 @@
 import json
-import urllib
+import urllib.parse
 from url_shortener import get_short_url, get_redirect_url
 
 

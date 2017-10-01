@@ -26,11 +26,23 @@ Shortcomings
 Requirements
 ============
 
-Python 3. That's all :)
+For prod run, only Python 3. That's all :)
+
+For running tests locally, you need py.test installed:
+
+    pip install -r requirements_test.txt
 
 Run it
 ======
 
+Run locally using curl and jq:
+
+    curl -X POST https://s3f6v3cd4c.execute-api.eu-west-1.amazonaws.com/Prod/shorten_url -d '{"url": "http://www.helloworld.com"}' | jq '.'
+    {
+        "url": "𣯷𣮮𣑥𣙬𣟷𣟲𣙤𡝣𣟭"
+    }
+
+Then visit [https://s3f6v3cd4c.execute-api.eu-west-1.amazonaws.com/Prod/𣯷𣮮𣑥𣙬𣟷𣟲𣙤𡝣𣟭](https://s3f6v3cd4c.execute-api.eu-west-1.amazonaws.com/Prod/𣯷𣮮𣑥𣙬𣟷𣟲𣙤𡝣𣟭) on your browser.
 
 Deployment
 ==========
