@@ -32,10 +32,14 @@ For running tests locally, you need py.test installed:
 
     pip install -r requirements_test.txt
 
-Run it
+And you can run all tests with:
+    
+    py.test
+
+Test it
 ======
 
-Run locally using curl and jq:
+Test locally using curl and jq:
 
     curl -X POST https://s3f6v3cd4c.execute-api.eu-west-1.amazonaws.com/Prod/shorten_url -d '{"url": "http://www.helloworld.com"}' | jq '.'
     {
@@ -47,7 +51,7 @@ Then visit [https://s3f6v3cd4c.execute-api.eu-west-1.amazonaws.com/Prod/𣯷𣮮
 Deployment
 ==========
 
-Add your credentials into .aws/config or .aws/credentials under a profile. Create a bucket to hold your uploaded lambda functions, such as `my-bucket`.
+Add your credentials into .aws/config or .aws/credentials under a profile. Create a bucket to hold your uploaded lambda functions, such as `my-bucket` using aws-cli or AWS Console.
 
 Run the following to create a complete cloudformation file which includes the code URI:
 
