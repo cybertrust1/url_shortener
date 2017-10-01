@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple URL shortener
+Resources:
+  ShortenUrl:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.shorten_url
+      Runtime: python3.6
+      Events:
+        PostResource:
+          Type: Api
+          Properties:
+            Path: /shorten_url
+            Method: post
+  Redirect:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.redirect
+      Runtime: python3.6
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /{mojibake}
+            Method: get

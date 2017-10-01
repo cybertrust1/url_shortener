@@ -35,6 +35,18 @@ Run it
 Deployment
 ==========
 
+Add your credentials into .aws/config or .aws/credentials under a profile. Create a bucket to hold your uploaded lambda functions, such as `my-bucket`.
+
+Run the following to create a complete cloudformation file which includes the code URI:
+
+    aws --profile my_profile cloudformation package --template-file cloudformation.yml --output-template-file cloudformation_with_codeuri.yml --s3-bucket my-bucket
+
+You will notice the new `cloudformation_with_codeuri.yml` file which is created. You can then deploy:
+
+    aws --profile my_profile --region eu-west-1 cloudformation deploy --template-file cloudformation_with_codeuri.yml --stack-name url-shortener --capabilities CAPABILITY_IAM
+
+Et, voila!
+
 Notes
 =====
 
@@ -46,9 +58,11 @@ Printable characters and those displayable on your screen are two very different
 
 [Character categories](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category) that start with 'C' are control characters.
 
-Alternatives
-============
+TO DO?
+======
 
 One could in theory achieve a shorter URLs by compressing it before encoding it. [Redis author antirez has a nice project compressing short text using some heuristics](https://github.com/antirez/smaz).
 
 Another improvement could come from utilizing vast number of other characters in different languages. [Wikipedia page on UTF8](https://en.wikipedia.org/wiki/UTF-8#Description) gives hints as to how the 4 byte representation could be used to encode ASCII.
+
+I am using raw cloudformation to deploy (well, with SAM transformation) and pure python for the lambdas at the moment but a further abstraction would simplify things a lot more. In particular [chalice](http://chalice.readthedocs.io/en/latest/) looks very promising. [Apex](http://apex.run/) and [Serverless](https://serverless.com/) are other two frameworks that are a bit more extensive and up for heavy-lifting. Note that with SAM, [API Gateway is the simple proxy for lambda](http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-set-up-simple-proxy.html#api-gateway-simple-proxy-for-lambda-input-format).

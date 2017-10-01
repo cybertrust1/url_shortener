@@ -9,7 +9,7 @@ ASCII characters.
 from itertools import zip_longest
 
 
-def shorten_url(url):
+def get_short_url(url):
     """Return shortened form for url."""
     base = 0b100000000000000000
     if url.startswith('https://'):
@@ -29,7 +29,7 @@ def shorten_url(url):
     return ''.join(shortened_url)
 
 
-def redirect(mojibake):
+def get_redirect_url(mojibake):
     """Return decoded URL from a shortened URL."""
     decoded_url = []
     # First character (and all others) includes protocol.
