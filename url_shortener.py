@@ -56,8 +56,3 @@ def get_redirect_url(mojibake):
         if ord2:
             decoded_url.append(chr(ord2))
     return ''.join(decoded_url)
-
-
-def validate_url(url):
-    """Validate URL is correct."""
-    pass
