@@ -1,5 +1,6 @@
-from url_shortener import get_short_url, get_redirect_url
 import json
+import urllib
+from url_shortener import get_short_url, get_redirect_url
 
 
 def shorten_url(event, context):
@@ -17,6 +18,8 @@ def shorten_url(event, context):
 
 def redirect(event, context):
     mojibake = event['pathParameters']['mojibake']
+    # Browsers quote non-ascii characters.
+    mojibake = urllib.parse.unquote(mojibake)
     redirect_url = get_redirect_url(mojibake)
     response = {
         'statusCode': 302,
